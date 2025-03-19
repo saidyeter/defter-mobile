@@ -1,5 +1,7 @@
 import { Button } from "@/components/ui/button";
 import { Text } from '@/components/ui/text';
+import { MoonStar } from "@/lib/icons/moonstar";
+import { Sun } from "@/lib/icons/sun";
 import { useColorScheme } from "@/lib/useColorScheme";
 import { Link } from "expo-router";
 import React from "react";
@@ -61,7 +63,7 @@ function Header() {
         <Link className="font-bold flex-1 items-center justify-center" href="/">
           ACME
         </Link>
-        <View className="flex flex-row gap-4 sm:gap-6">
+        <View className="flex flex-row gap-4 sm:gap-6  items-center">
           <Link
             className="text-md font-medium hover:underline web:underline-offset-4"
             href="/"
@@ -78,8 +80,10 @@ function Header() {
             className="text-md font-medium hover:underline web:underline-offset-4"
             onPress={toggleColorScheme}
           >
-            <Text className="text-black dark:text-white">
-              {isDarkColorScheme ? "𖤓" : "☾"}</Text>
+            {isDarkColorScheme ?
+              <Sun color={isDarkColorScheme ? "white" : "black"} size={16} /> :
+              <MoonStar color={isDarkColorScheme ? "white" : "black"} size={16} />
+            }
           </Pressable>
         </View>
       </View>
