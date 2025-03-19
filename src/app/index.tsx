@@ -1,7 +1,11 @@
+import { Button } from "@/components/ui/button";
+import { Text } from '@/components/ui/text';
+import { useColorScheme } from "@/lib/useColorScheme";
 import { Link } from "expo-router";
 import React from "react";
-import { Text, View } from "react-native";
+import { Pressable, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
+
 
 export default function Page() {
   return (
@@ -37,6 +41,9 @@ function Content() {
               >
                 Explore
               </Link>
+              <Button variant="default" size="sm">
+                <Text>Default</Text>
+              </Button>
             </View>
           </View>
         </View>
@@ -46,6 +53,7 @@ function Content() {
 }
 
 function Header() {
+  const { toggleColorScheme, isDarkColorScheme } = useColorScheme()
   const { top } = useSafeAreaInsets();
   return (
     <View style={{ paddingTop: top }}>
@@ -66,12 +74,13 @@ function Header() {
           >
             Product
           </Link>
-          <Link
+          <Pressable
             className="text-md font-medium hover:underline web:underline-offset-4"
-            href="/"
+            onPress={toggleColorScheme}
           >
-            Pricing
-          </Link>
+            <Text className="text-black dark:text-white">
+              {isDarkColorScheme ? "𖤓" : "☾"}</Text>
+          </Pressable>
         </View>
       </View>
     </View>
