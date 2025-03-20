@@ -6,7 +6,6 @@ export const entity = sqliteTable(
   {
     id: integer('id').primaryKey(),
     title: text('title'),
-    desc: text('desc'),
     phoneNumber: text('phoneNumber'),
     note: text('note'),
     createdAt: integer('createdAt').default(sql`(CURRENT_TIMESTAMP)`),

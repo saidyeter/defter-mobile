@@ -39,11 +39,20 @@ export default {
     }
     return db.select().from(entity).where(eq(entity.id, Number(id)));
   },
-  async addEntity(item: { title: string, desc: string, phoneNumber: string, note: string }) {
+  async addEntity(item: { title: string, phoneNumber: string, note: string }) {
     return await db.insert(entity).values({
       ...item,
       createdAt: new Date().getTime()
     });
+  },
+  async updateEntity(id: number, item: { title: string, phoneNumber: string, note: string }) {
+
+    return await db.update(entity)
+      .set({
+        ...item,
+        updatedAt: new Date().getTime()
+      })
+      .where(eq(entity.id, id));
   },
   /* ###  transaction table  ###   */
   getEntityTransactionsPromise(entityId: string | undefined | null) {

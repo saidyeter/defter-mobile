@@ -3,10 +3,10 @@ import { Input } from "@/components/ui/input";
 import { Text } from '@/components/ui/text';
 import db, { getDB } from '@/data/db';
 import migrations from '@/data/drizzle/migrations';
-import { User } from "@/lib/icons/user";
+import { User } from "@/lib/icons";
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
-import { Link } from "expo-router";
+import { Link, router } from "expo-router";
 import React, { useEffect, useState } from "react";
 import { ScrollView, View } from "react-native";
 
@@ -24,7 +24,7 @@ export default function Page() {
         <Text className="text-xl font-bold">
           Kişiler
         </Text>
-        <Button variant="default" size="sm" >
+        <Button variant="default" size="sm" onPress={() => router.push('entity/new')}>
           <Text>Yeni Ekle</Text>
         </Button>
       </View>
@@ -45,7 +45,6 @@ function Item({ item }: {
   item: {
     id: number;
     title: string;
-    desc: string;
     phoneNumber: string;
     note: string;
     createdAt: number;
@@ -55,7 +54,7 @@ function Item({ item }: {
   return (
     <View
       key={item.id}
-      className="mb-2 flex flex-row items-center space-x-4 rounded-md border p-4 w-full"
+      className="mb-2 flex flex-row items-center gap-4 space-x-4 rounded-md border border-muted p-4 w-full"
     >
       <User className="text-primary" />
       <View className="flex-1 space-y-1">

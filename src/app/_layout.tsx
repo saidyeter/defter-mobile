@@ -1,10 +1,11 @@
+import { Button } from '@/components/ui/button';
+import { Text } from '@/components/ui/text';
 import '@/global.css';
 import { NAV_THEME } from '@/lib/constants';
-import { MoonStar } from "@/lib/icons/moonstar";
-import { Sun } from "@/lib/icons/sun";
+import { ChevronLeft, MoonStar, Sun } from "@/lib/icons";
 import { useColorScheme } from '@/lib/useColorScheme';
 import { DarkTheme, DefaultTheme, Theme, ThemeProvider } from '@react-navigation/native';
-import { Link, Stack } from "expo-router";
+import { Stack, useNavigation } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
 import React from "react";
 import { Platform, Pressable, View } from "react-native";
@@ -74,25 +75,29 @@ const useIsomorphicLayoutEffect =
 function Header() {
   const { toggleColorScheme, isDarkColorScheme } = useColorScheme()
   const { top } = useSafeAreaInsets();
+  const navigation = useNavigation();
+  const cgb = navigation.canGoBack()
   return (
-    <View style={{ paddingTop: top }}>
+    <View style={{ paddingTop: top, marginBottom: 16 }}>
       <View className="px-4 lg:px-6 h-14 flex items-center flex-row justify-between ">
-        <Link
-          suppressHighlighting
-          className="flex h-9 items-center justify-center overflow-hidden rounded-md p-2 text-3xl font-medium dark:text-gray-50 web:shadow ios:shadow transition-colors   focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50  text-gray-900  dark:focus-visible:ring-gray-300"
-          href="/"
-        >
-          Defter
-        </Link>
-        <View className="flex flex-row gap-4 sm:gap-6  items-center">
+        <Button
+          disabled={!cgb} variant='outline' className='items-center justify-center'
+          onPress={() => {
+            if (!cgb) return;
+            navigation.goBack()
+          }}>
+          <ChevronLeft size={16} className={cgb ? 'text-primary' : 'text-gray-500'} />
+        </Button>
 
+        <Text className='text-3xl font-bold' >Defter</Text>
+        <View className="flex flex-row gap-4 sm:gap-6  items-center">
           <Pressable
             className="text-md font-medium hover:underline web:underline-offset-4"
             onPress={toggleColorScheme}
           >
             {isDarkColorScheme ?
-              <Sun color={isDarkColorScheme ? "white" : "black"} size={16} /> :
-              <MoonStar color={isDarkColorScheme ? "white" : "black"} size={16} />
+              <MoonStar color={isDarkColorScheme ? "white" : "black"} size={24} /> :
+              <Sun color={isDarkColorScheme ? "white" : "black"} size={24} />
             }
           </Pressable>
         </View>
