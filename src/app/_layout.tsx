@@ -1,16 +1,18 @@
 import '@/global.css';
-
 import { NAV_THEME } from '@/lib/constants';
+import { MoonStar } from "@/lib/icons/moonstar";
+import { Sun } from "@/lib/icons/sun";
 import { useColorScheme } from '@/lib/useColorScheme';
 import { DarkTheme, DefaultTheme, Theme, ThemeProvider } from '@react-navigation/native';
-import { Stack } from 'expo-router';
+import { Link, Stack } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
-import * as React from 'react';
-import { Platform } from 'react-native';
+import React from "react";
+import { Platform, Pressable, View } from "react-native";
 import {
   configureReanimatedLogger,
   ReanimatedLogLevel,
 } from 'react-native-reanimated';
+import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 // This is the default configuration
 configureReanimatedLogger({
@@ -58,7 +60,7 @@ export default function RootLayout() {
     <ThemeProvider value={isDarkColorScheme ? DARK_THEME : LIGHT_THEME}>
       <StatusBar style={isDarkColorScheme ? 'light' : 'dark'} />
       <Stack screenOptions={{
-        headerShown: false,
+        header: () => <Header />,
       }} />
     </ThemeProvider>
   );
@@ -66,3 +68,35 @@ export default function RootLayout() {
 
 const useIsomorphicLayoutEffect =
   Platform.OS === 'web' && typeof window === 'undefined' ? React.useEffect : React.useLayoutEffect;
+
+
+
+function Header() {
+  const { toggleColorScheme, isDarkColorScheme } = useColorScheme()
+  const { top } = useSafeAreaInsets();
+  return (
+    <View style={{ paddingTop: top }}>
+      <View className="px-4 lg:px-6 h-14 flex items-center flex-row justify-between ">
+        <Link
+          suppressHighlighting
+          className="flex h-9 items-center justify-center overflow-hidden rounded-md p-2 text-3xl font-medium dark:text-gray-50 web:shadow ios:shadow transition-colors   focus-visible:ring-gray-950 disabled:pointer-events-none disabled:opacity-50  text-gray-900  dark:focus-visible:ring-gray-300"
+          href="/"
+        >
+          Defter
+        </Link>
+        <View className="flex flex-row gap-4 sm:gap-6  items-center">
+
+          <Pressable
+            className="text-md font-medium hover:underline web:underline-offset-4"
+            onPress={toggleColorScheme}
+          >
+            {isDarkColorScheme ?
+              <Sun color={isDarkColorScheme ? "white" : "black"} size={16} /> :
+              <MoonStar color={isDarkColorScheme ? "white" : "black"} size={16} />
+            }
+          </Pressable>
+        </View>
+      </View>
+    </View>
+  );
+}

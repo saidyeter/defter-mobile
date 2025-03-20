@@ -1,4 +1,5 @@
-import { integer, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
+import { sql } from "drizzle-orm";
+import { integer, real, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 export const entity = sqliteTable(
   'entity',
@@ -8,8 +9,18 @@ export const entity = sqliteTable(
     desc: text('desc'),
     phoneNumber: text('phoneNumber'),
     note: text('note'),
-    createdAt: integer('createdAt'),
-  },
-  (tbl) => ({
-    titleIndex: uniqueIndex('titleIndex').on(tbl.title),
-  }))
+    createdAt: integer('createdAt').default(sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: integer('updatedAt').default(sql`(CURRENT_TIMESTAMP)`),
+  })
+
+export const transaction = sqliteTable(
+  'transaction',
+  {
+    id: integer('id').primaryKey(),
+    entityId: integer('entityId'),
+    amount: real('amount'),
+    type: text('type'),
+    note: text('note'),
+    createdAt: integer('createdAt').default(sql`(CURRENT_TIMESTAMP)`),
+    updatedAt: integer('updatedAt').default(sql`(CURRENT_TIMESTAMP)`),
+  })
