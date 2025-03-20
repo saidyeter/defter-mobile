@@ -1,15 +1,41 @@
 import { Button } from "@/components/ui/button";
 import { Text } from '@/components/ui/text';
+import db, { getDB } from '@/data/db';
+import migrations from '@/data/drizzle/migrations';
 import { MoonStar } from "@/lib/icons/moonstar";
 import { Sun } from "@/lib/icons/sun";
 import { useColorScheme } from "@/lib/useColorScheme";
+import { useLiveQuery } from "drizzle-orm/expo-sqlite";
+import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
 import { Link } from "expo-router";
-import React from "react";
+import React, { useEffect } from "react";
 import { Pressable, View } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
-
 export default function Page() {
+
+  const { success, error } = useMigrations(getDB(), migrations);
+  useEffect(() => {
+    if (success) {
+      console.log('Migration successful');
+      db.getEntityList()
+        .then((d) => {
+          if (d.length == 0) {
+            db.addEntity({
+              title: "Hello",
+              desc: "World",
+              phoneNumber: "1234567890",
+              note: "This is a note"
+            })
+          }
+
+        });
+    } else if (error) {
+      console.error('Migration failed:', error);
+    }
+  }, [success, error]);
+
+
   return (
     <View className="flex flex-1">
       <Header />
@@ -20,6 +46,9 @@ export default function Page() {
 }
 
 function Content() {
+  const { data } = useLiveQuery(db.getEntityListPromise());
+
+
   return (
     <View className="flex-1">
       <View className="py-12 md:py-24 lg:py-32 xl:py-48">
@@ -47,6 +76,10 @@ function Content() {
                 <Text>Default</Text>
               </Button>
             </View>
+
+            {data.map((item, index) => (
+              <Text key={index}>{item.title}</Text>
+            ))}
           </View>
         </View>
       </View>
