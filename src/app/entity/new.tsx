@@ -1,6 +1,4 @@
-import { Button } from '@/components/ui/button';
-import { Input } from '@/components/ui/input';
-import { Text } from '@/components/ui/text';
+import { Button, Input, Text } from '@/components/ui';
 import db from '@/data/db';
 import { router } from 'expo-router';
 import React from "react";
@@ -16,7 +14,7 @@ export default function Page() {
       phoneNumber: phoneNumber,
       note: note,
     }).then(() => {
-      console.log('saved');
+      // console.log('saved');
       router.dismissTo('/');
     });
   }
@@ -24,7 +22,7 @@ export default function Page() {
     <View className="flex flex-1 p-4">
       <View className="flex flex-row items-center gap-4 text-center justify-between">
         <Text className="text-xl font-bold">
-          Yeni Kişi Ekle
+          Yeni Kişi
         </Text>
       </View>
       <View className='flex flex-col py-4 gap-4 text-center justify-between w-full mb-4'>

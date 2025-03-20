@@ -25,7 +25,7 @@ export default function Page() {
           Kişiler
         </Text>
         <Button variant="default" size="sm" onPress={() => router.push('entity/new')}>
-          <Text>Yeni Ekle</Text>
+          <Text>Yeni Kişi Ekle</Text>
         </Button>
       </View>
       <View className="my-4">

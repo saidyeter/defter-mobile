@@ -31,7 +31,7 @@ export default function Page() {
       phoneNumber: phoneNumber,
       note: note,
     }).then(() => {
-      console.log('updated');
+      // console.log('updated');
       router.dismissTo('/');
     });
   }

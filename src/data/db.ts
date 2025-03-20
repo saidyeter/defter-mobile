@@ -39,6 +39,12 @@ export default {
     }
     return db.select().from(entity).where(eq(entity.id, Number(id)));
   },
+  getEntityByNumberIdPromise(id: number) {
+    if (!id && isNaN(id)) {
+      return undefined
+    }
+    return db.select().from(entity).where(eq(entity.id, Number(id)));
+  },
   async addEntity(item: { title: string, phoneNumber: string, note: string }) {
     return await db.insert(entity).values({
       ...item,
@@ -61,5 +67,16 @@ export default {
     }
     return db.select().from(transaction).where(eq(transaction.entityId, Number(entityId)));
   },
-
+  async addTransaction(item: { amount: number, type: string, note: string, entityId: number }) {
+    return await db.insert(transaction).values(item);
+  },
+  getTransactionByIdPromise(id: string | undefined | null) {
+    if (!id && isNaN(Number(id))) {
+      return undefined
+    }
+    return db.select().from(transaction).where(eq(transaction.id, Number(id)));
+  },
+  async removeTransaction(id: number) {
+    return await db.delete(transaction).where(eq(transaction.id, id));
+  },
 }

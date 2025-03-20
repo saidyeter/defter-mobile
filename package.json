@@ -10,6 +10,8 @@
     "db_gen": "npx drizzle-kit generate"
   },
   "dependencies": {
+    "@rn-primitives/label": "^1.1.0",
+    "@rn-primitives/radio-group": "^1.1.0",
     "@rn-primitives/slot": "^1.1.0",
     "@rn-primitives/types": "^1.1.0",
     "babel-plugin-inline-import": "^3.0.0",
