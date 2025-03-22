@@ -74,7 +74,7 @@ export default function Page() {
       </View>
       <View className="py-8">
         <Button disabled>
-          <Text>Düzenle (Yakında Aktif Olacak)</Text>
+          <Text>Kaydı Düzenle (Yakında Aktif Olacak)</Text>
         </Button>
       </View>
     </View>

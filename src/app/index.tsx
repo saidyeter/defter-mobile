@@ -3,7 +3,7 @@ import { Input } from "@/components/ui/input";
 import { Text } from '@/components/ui/text';
 import db, { getDB } from '@/data/db';
 import migrations from '@/data/drizzle/migrations';
-import { User } from "@/lib/icons";
+import { ChevronRight, User } from "@/lib/icons";
 import { useLiveQuery } from "drizzle-orm/expo-sqlite";
 import { useMigrations } from 'drizzle-orm/expo-sqlite/migrator';
 import { Link, router } from "expo-router";
@@ -69,12 +69,11 @@ function Item({ item }: {
         href={`/entity/${item.id}`}
         className={buttonVariants({ variant: 'outline', size: 'sm' })}
       >
-        <View className="flex flex-1 items-center justify-center ">
-          <Text className="mt-1">
-            Detay
-          </Text>
+        <View className="flex flex-1 items-center justify-center pt-1 ">
+          <ChevronRight className="text-primary" />
         </View>
       </Link>
     </View>
   )
 }
+

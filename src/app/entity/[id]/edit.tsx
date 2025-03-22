@@ -50,6 +50,11 @@ export default function Page() {
       <Button variant="default" size="sm" onPress={handleSave}>
         <Text>Kaydet</Text>
       </Button>
+      <View className="py-8">
+        <Button disabled variant='destructive'>
+          <Text>Kaydı Sil (Yakında Aktif Olacak)</Text>
+        </Button>
+      </View>
     </View>
   );
 }

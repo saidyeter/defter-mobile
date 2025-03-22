@@ -7,7 +7,8 @@ import { useColorScheme } from '@/lib/useColorScheme';
 import { DarkTheme, DefaultTheme, Theme, ThemeProvider } from '@react-navigation/native';
 import { Stack, useNavigation } from "expo-router";
 import { StatusBar } from 'expo-status-bar';
-import React from "react";
+import * as Updates from 'expo-updates';
+import React, { useEffect } from "react";
 import { Platform, Pressable, View } from "react-native";
 import {
   configureReanimatedLogger,
@@ -51,6 +52,12 @@ export default function RootLayout() {
     }
     setIsColorSchemeLoaded(true);
     hasMounted.current = true;
+  }, []);
+
+  useEffect(() => {
+    if (!__DEV__) {
+      onFetchUpdateAsync();
+    }
   }, []);
 
   if (!isColorSchemeLoaded) {
@@ -104,4 +111,17 @@ function Header() {
       </View>
     </View>
   );
+}
+
+async function onFetchUpdateAsync() {
+  try {
+    const update = await Updates.checkForUpdateAsync();
+    if (update.isAvailable) {
+      await Updates.fetchUpdateAsync();
+      await Updates.reloadAsync();
+      console.log(`Expo update loaded`, '');
+    }
+  } catch (error) {
+    console.log(`Error fetching latest Expo update`, JSON.stringify(error));
+  }
 }

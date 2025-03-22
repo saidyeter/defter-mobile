@@ -1,13 +1,22 @@
 {
   "expo": {
-    "scheme": "acme",
+    "name": "defter-app",
+    "version": "1.0.0",
+    "slug": "defter-app",
+    "scheme": "defter-app",
     "userInterfaceStyle": "automatic",
-    "orientation": "default",
+    "icon": "./assets/images/icon.png",
+    "orientation": "portrait",
     "plugins": [
       "expo-router",
       "expo-sqlite"
     ],
-    "name": "defter-app",
-    "slug": "defter-app"
+    "ios": {
+      "bundleIdentifier": "com.saidyeter.defter",
+    },
+    "android": {
+      "package": "com.saidyeter.defter",
+      "versionCode": 1
+    }
   }
 }
