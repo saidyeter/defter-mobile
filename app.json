@@ -12,11 +12,25 @@
       "expo-sqlite"
     ],
     "ios": {
-      "bundleIdentifier": "com.saidyeter.defter",
+      "bundleIdentifier": "com.saidyeter.defter"
     },
     "android": {
       "package": "com.saidyeter.defter",
       "versionCode": 1
+    },
+    "extra": {
+      "router": {
+        "origin": false
+      },
+      "eas": {
+        "projectId": "aab5ac5c-d6f9-4142-9359-3e68689387a3"
+      }
+    },
+    "runtimeVersion": {
+      "policy": "appVersion"
+    },
+    "updates": {
+      "url": "https://u.expo.dev/aab5ac5c-d6f9-4142-9359-3e68689387a3"
     }
   }
 }
